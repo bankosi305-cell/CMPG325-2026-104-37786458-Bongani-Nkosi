@@ -1,0 +1,214 @@
+Core-SW>enable
+Core-SW#show running-config
+Building configuration...
+
+Current configuration : 3859 bytes
+!
+version 12.2(37)SE1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname Core-SW
+!
+!
+no profinet
+enable secret 5 $1$mERr$5.a6P4JqbNiMX01usIfka/
+!
+!
+!
+ip dhcp pool VLAN10_POOL
+ network 10.40.1.0 255.255.255.0
+ default-router 10.40.1.254
+ dns-server 8.8.8.8
+ip dhcp pool VLAN20_POOL
+network 10.40.2.0 255.255.255.0
+ default-router 10.40.2.254
+ dns-server 8.8.8.8
+ip dhcp pool VLAN30_POOL
+ network 10.40.3.0 255.255.255.0
+ default-router 10.40.3.254
+ dns-server 8.8.8.8
+ip dhcp pool VLAN40_POOL
+ network 10.40.4.0 255.255.255.0
+ default-router 10.40.4.254
+ dns-server 8.8.8.8
+ip dhcp pool VLAN50_POOL
+ network 10.40.5.0 255.255.255.0
+ default-router 10.40.5.254
+ dns-server 8.8.8.8
+!
+!
+ip routing
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/1
+ switchport access vlan 200
+ switchport mode access
+!
+interface FastEthernet0/2
+ switchport access vlan 200
+ --More-- 
+%CDP-4-NATIVE_VLAN_MISMATCH: Native VLAN mismatch discovered on FastEthernet0/9 (1), with SW-CCTV FastEthernet0/1 (100).
+ switchport mode access
+!
+interface FastEthernet0/3
+ switchport access vlan 200
+ switchport mode access
+!
+interface FastEthernet0/4
+ switchport access vlan 200
+ switchport mode access
+!
+interface FastEthernet0/5
+ switchport trunk allowed vlan 10,20,30,50,200
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface FastEthernet0/6
+ switchport trunk allowed vlan 20
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface FastEthernet0/7
+ switchport trunk allowed vlan 30
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface FastEthernet0/8
+ switchport trunk allowed vlan 40
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface FastEthernet0/9
+ switchport trunk allowed vlan 100
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface FastEthernet0/10
+ switchport access vlan 200
+ switchport mode access
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+ switchport access vlan 10
+ switchport mode access
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan10
+mac-address 000d.bd3a.4b01
+ ip address 10.40.1.254 255.255.255.0
+!
+interface Vlan20
+ mac-address 000d.bd3a.4b02
+ ip address 10.40.2.254 255.255.255.0
+!
+interface Vlan30
+ mac-address 000d.bd3a.4b03
+ ip address 10.40.3.254 255.255.255.0
+!
+interface Vlan40
+ mac-address 000d.bd3a.4b04
+ ip address 10.40.4.254 255.255.255.0
+!
+interface Vlan50
+ mac-address 000d.bd3a.4b05
+ ip address 10.40.5.254 255.255.255.0
+!
+interface Vlan100
+ mac-address 000d.bd3a.4b06
+ ip address 10.40.10.254 255.255.255.0
+!
+interface Vlan200
+ mac-address 000d.bd3a.4b07
+ ip address 10.40.20.14 255.255.255.240
+!
+interface Vlan999
+ mac-address 000d.bd3a.4b08
+ ip address 10.40.255.254 255.255.255.240
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 10.40.1.1 
+!
+ip flow-export version 9
+!
+!
+access-list 101 deny ip 10.40.10.0 0.0.0.255 10.40.0.0 0.0.255.255
+access-list 101 permit ip any any
+access-list 102 permit ip 10.40.1.0 0.0.0.255 10.40.20.0 0.0.0.15
+access-list 102 permit ip 10.40.2.0 0.0.0.255 10.40.20.0 0.0.0.15
+access-list 102 permit ip 10.40.5.0 0.0.0.255 10.40.20.0 0.0.0.15
+access-list 102 permit ip 10.40.20.0 0.0.0.15 10.40.1.0 0.0.0.255
+access-list 102 permit ip 10.40.20.0 0.0.0.15 10.40.2.0 0.0.0.255
+access-list 102 permit ip 10.40.20.0 0.0.0.15 10.40.5.0 0.0.0.255
+access-list 102 permit ip 10.40.20.0 0.0.0.15 10.40.20.0 0.0.0.15
+access-list 102 deny ip any any
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+!
+end
